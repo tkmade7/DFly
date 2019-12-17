@@ -1,5 +1,9 @@
 version: 2.1
 
+# Orb definition
+orbs:
+  aws-ecr: circleci/aws-ecr@0.0.4
+
 # Executors definition
 executors:
   py_executor:
@@ -29,6 +33,16 @@ jobs:
       - checkout
       - setup_remote_docker
       - docker_build
+      - aws-ecr/build_and_push_image:
+          region: "${AWS_DEFAULT_REGION}"
+          aws-access-key-id: "${AWS_ACCESS_KEY_ID}"
+          aws-secret-access-key: "${AWS_SECRET_ACCESS_KEY}"
+          account-url: "${AWS_ACCOUNT_ID}.dkr.ecr.${AWS_DEFAULT_REGION}.amazonaws.com"
+          create-repo: true
+          repo: "${CIRCLE_PROJECT_REPONAME}"
+          tag: "${CIRCLE_SHA1}"
+          requires:
+            - build_deploy
 
 
 workflows:
