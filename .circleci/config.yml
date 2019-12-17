@@ -27,7 +27,7 @@ jobs:
     executor: py_executor
     steps:
       - checkout
-	  - setup_remote_docker
+      - setup_remote_docker
       - docker_build
 
 
