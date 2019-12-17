@@ -4,6 +4,7 @@ version: 2.1
 orbs:
   aws-ecr: circleci/aws-ecr@0.0.4
 
+
 # Executors definition
 executors:
   py_executor:
