@@ -1,0 +1,42 @@
+version: 2.1
+
+# Executors definition
+executors:
+  py_executor:
+    parameters:
+      PY_VERSION:
+        type: string
+        default: 3.7.1
+    docker:
+      - image: circleci/python:<< parameters.PY_VERSION >>
+    working_directory: ~/repo
+    environment:
+      JVM_OPTS: -Xmx3200m
+      TERM: dumb
+
+
+commands:
+  docker_build:
+    description: "build the Docker image for DFly Web Application"
+    steps:
+      - run: |
+			docker build -t fdfly-webapp:latest .
+          
+
+jobs:
+  build_deploy:
+    executor: py_executor
+    steps:
+      - checkout
+	  - setup_remote_docker
+      - docker_build
+
+
+workflows:
+  version: 2.1
+  build:
+    jobs:
+      - build_deploy:
+          filters:
+            branches:
+              only: master
