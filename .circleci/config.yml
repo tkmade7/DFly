@@ -19,8 +19,7 @@ commands:
   docker_build:
     description: "build the Docker image for DFly Web Application"
     steps:
-      - run: |
-			docker build -t fdfly-webapp:latest .
+      - run: docker build -t fdfly-webapp:latest .
           
 
 jobs:
