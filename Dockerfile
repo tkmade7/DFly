@@ -1,6 +1,6 @@
 FROM ubuntu:16.04
 
-MAINTAINER Your Name "nmshastri09@gmail.com"
+MAINTAINER Your Name "Manju"
 
 RUN apt-get update -y && \
     apt-get install -y python-pip python-dev
